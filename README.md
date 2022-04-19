@@ -59,4 +59,4 @@ consideración en peculiaridades del lenguaje, convenciones y buenas prácticas.
 
  ![Diagrama de Flujo](Img/Diagrama%20de%20Flujo%20de%20MDLinks.jpeg)
 
-El proyecto se va a desarrollar diseñando primero los test unitarios para evaluar calidad, eficiencia en las funciones que se crearan en el proyecto. Luego de esto se crearan las funciones. Asi se podra hacer pruebas a los cambios y asegurarse que los nuevos cambios se introduzcan sin defecto, saber como utilizar el codigo y detectar errores en el codigo de ser necesario realizar los cambios pertinentes.
+Vamos a implementar la metodolgia TDD(test driven development), diseñando primero los test unitarios para evaluar calidad, eficiencia en las funciones que se crearan en el proyecto. Asi se podra hacer pruebas a los cambios y asegurarse que los nuevos cambios se introduzcan sin defecto, saber como utilizar el codigo y detectar errores en el mismo, de ser necesario realizar los cambios pertinentes a las funciones.
