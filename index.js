@@ -23,6 +23,18 @@ const pathExists = function(originPath){
   return relative;
 }
 
+/**
+ * Convierte una ruta o un path relativo en absoluto
+ * @param {*} relativePath 
+ * @returns 
+ */
+ const convertToAbsolut = function(relativePath){
+  const absolutePath = path.resolve(relativePath);
+  console.log(`convertToAbsolut(${relativePath}) ${absolutePath}`);
+  return absolutePath;
+}
+
+
 module.exports = {
-  pathExists, isRelative
+  pathExists, isRelative, convertToAbsolut
 };

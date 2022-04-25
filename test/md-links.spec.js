@@ -1,4 +1,4 @@
-const {pathExists, isRelative} = require('../index');
+const {pathExists, isRelative, convertToAbsolut} = require('../index');
 
 describe('pathExists', () => {
 
@@ -31,4 +31,23 @@ describe('isRelative', () => {
   it('should return true with a absolute path', () => {
     expect(isRelative('C:\\Users\\natyc\\md-links\\test')).toBe(false);
   });
+});
+
+describe('convertToAbsolut', () => {
+  it('should be a function', () => {
+    expect(typeof convertToAbsolut).toBe('function');
+  });
+  // Probando con una ruta relativa (la carpeta padre ../), la funcion debe devolverla convertida
+  it('should return true with a relative path', () => {
+    expect(convertToAbsolut('../')).toBe('C:\\Users\\natyc');
+  });  
+
+  it('should return true with a relative path', () => {
+    expect(convertToAbsolut('./')).toBe('C:\\Users\\natyc\\md-links');
+  });  
+
+  it('should return true with a relative path', () => {
+    expect(convertToAbsolut('./img')).toBe('C:\\Users\\natyc\\md-links\\img');
+  });  
+ 
 });
