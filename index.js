@@ -33,8 +33,17 @@ const pathExists = function(originPath){
   console.log(`convertToAbsolut(${relativePath}) ${absolutePath}`);
   return absolutePath;
 }
-
+/**
+ * Valida si path es un directorio
+ * @param {*} originPath 
+ * @returns 
+ */
+const isFolder = function(originPath){
+  const folder = fs.lstatSync(originPath).isDirectory();
+  console.log(`isFolder(${originPath}) ${folder}`);
+  return folder;
+}
 
 module.exports = {
-  pathExists, isRelative, convertToAbsolut
+  pathExists, isRelative, convertToAbsolut, isFolder
 };

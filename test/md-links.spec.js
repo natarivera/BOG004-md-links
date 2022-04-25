@@ -1,4 +1,4 @@
-const {pathExists, isRelative, convertToAbsolut} = require('../index');
+const {pathExists, isRelative, convertToAbsolut, isFolder} = require('../index');
 
 describe('pathExists', () => {
 
@@ -49,5 +49,18 @@ describe('convertToAbsolut', () => {
   it('should return true with a relative path', () => {
     expect(convertToAbsolut('./img')).toBe('C:\\Users\\natyc\\md-links\\img');
   });  
- 
+});
+
+describe('isFolder', () => {
+  it('should be a function', () => {
+    expect(typeof isFolder).toBe('function');
+  });
+  // Probando con una ruta a  un directorio 
+  it('should return true with a directory', () => {
+    expect(isFolder('../')).toBe(true);
+  });  
+// Probando con una ruta a un archivo 
+  it('should return false with an archive', () => {
+    expect(isFolder('./package.json')).toBe(false);
+  });  
 });
