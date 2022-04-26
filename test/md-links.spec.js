@@ -1,4 +1,4 @@
-const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder, isMarkdownFile, readMarkdownFile
+const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder, isMarkdownFile, readMarkdownFile, searchLinks,
 
 } = require('../index');
 
@@ -99,5 +99,19 @@ describe('readMarkdownFile', () => {
       expect(data.length).not.toBe(0);
     });
   });
+});
 
+describe('searchLinks', () => {
+  it('should be a function', () => {
+    expect(typeof searchLinks).toBe('function');
+  });
+  test('test if find links from test file', () => {
+    return readMarkdownFile('./test/single_link.md').then(data => {
+      expect(searchLinks(data).length).not.toBe(0);
+    });
+  });
+
+  test('test if find one link', () => {
+    expect(searchLinks('[Amazon](www.amazon.com)').length).not.toBe(0);
+  });
 });

@@ -79,7 +79,25 @@ const isMarkdownFile = function(originPath){
      }
    );      
 }
+/**
+ * Busca los links en una cadena de texto en formato markdown
+ * @param {*} markDown 
+ * @returns un arreglo de objetos con text y href
+ */
+const searchLinks = function(markDown){
+  const regExt = /\[(.*)\]\((.*)\)/gm;
+  const matches = markDown.matchAll(regExt);
+  const matchArray = [];
+  for( let match of matches ){
+    matchArray.push({
+      text: match[1],
+      href: match[2]
+    });
+  }
+  return matchArray;
+}
+
 
 module.exports = {
-  pathExists, isRelative, convertToAbsolut, isFolder,listFolder, isMarkdownFile, readMarkdownFile
+  pathExists, isRelative, convertToAbsolut, isFolder,listFolder, isMarkdownFile, readMarkdownFile, searchLinks
 };
