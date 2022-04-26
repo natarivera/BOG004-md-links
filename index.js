@@ -43,7 +43,17 @@ const isFolder = function(originPath){
   console.log(`isFolder(${originPath}) ${folder}`);
   return folder;
 }
+/**
+ * Lista el contenido de una carpeta 
+ * @param {*} originPath 
+ * @returns un arreglo
+ */
+const listFolder = function(originPath){
+  const list = fs.readdirSync(originPath);
+  console.log(`isFolder(${originPath}) ${list}`);
+  return list;
+}
 
 module.exports = {
-  pathExists, isRelative, convertToAbsolut, isFolder
+  pathExists, isRelative, convertToAbsolut, isFolder,listFolder
 };

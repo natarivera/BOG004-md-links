@@ -1,4 +1,6 @@
-const {pathExists, isRelative, convertToAbsolut, isFolder} = require('../index');
+const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder
+
+} = require('../index');
 
 describe('pathExists', () => {
 
@@ -62,5 +64,15 @@ describe('isFolder', () => {
 // Probando con una ruta a un archivo 
   it('should return false with an archive', () => {
     expect(isFolder('./package.json')).toBe(false);
+  });  
+});
+
+describe('listFolder', () => {
+  it('should be a function', () => {
+    expect(typeof listFolder).toBe('function');
+  });
+  // Probando contenido de un directory que no este vacio
+  it('should return an array that is not empty', () => {
+    expect(listFolder('./').lenght).not.toBe(0);
   });  
 });
