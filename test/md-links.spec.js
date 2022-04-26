@@ -1,4 +1,4 @@
-const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder
+const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder, isMarkdownFile, readMarkdownFile
 
 } = require('../index');
 
@@ -75,4 +75,27 @@ describe('listFolder', () => {
   it('should return an array that is not empty', () => {
     expect(listFolder('./').lenght).not.toBe(0);
   });  
+});
+
+describe('isMarkdownFile,', () => {
+  it('should be a function', () => {
+    expect(typeof isMarkdownFile).toBe('function');
+  });
+  it('should return true if is markdown file', () =>{
+    expect(isMarkdownFile('test.md')).toBe(true);
+  });
+
+  it('should return False if is not markdown file', () =>{
+    expect(isMarkdownFile('test.html')).toBe(false);
+  });
+});
+
+describe('readMarkdownFile', () => {
+
+  it('should...', () => {
+    console.log('FIX ME!');
+    console.log(typeof readMarkdownFile);
+    
+    readMarkdownFile("./test/single_link.md");
+  });
 });
