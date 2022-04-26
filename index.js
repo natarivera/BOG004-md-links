@@ -1,4 +1,5 @@
 const fs = require('fs');
+const fsPromises = require('fs/promises');
 const path = require('path');
 
 /**
@@ -50,10 +51,22 @@ const isFolder = function(originPath){
  */
 const listFolder = function(originPath){
   const list = fs.readdirSync(originPath);
-  console.log(`isFolder(${originPath}) ${list}`);
+  console.log(`listFolder(${originPath}) ${list}`);
   return list;
 }
 
+/**
+ * Valida la extension del archivo
+ * @param {*} originPath 
+ * @returns true para .md y falso en otro caso
+ */
+const isMarkdownFile = function(originPath){
+  const isMarkdown = path.extname(originPath) === '.md';  
+  console.log(`isMarkdownFile(${originPath}) ${isMarkdown}`);
+  return isMarkdown;
+}
+
+
 module.exports = {
-  pathExists, isRelative, convertToAbsolut, isFolder,listFolder
+  pathExists, isRelative, convertToAbsolut, isFolder,listFolder, isMarkdownFile, readMarkdownFile
 };
