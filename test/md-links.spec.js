@@ -91,11 +91,13 @@ describe('isMarkdownFile,', () => {
 });
 
 describe('readMarkdownFile', () => {
-
-  it('should...', () => {
-    console.log('FIX ME!');
-    console.log(typeof readMarkdownFile);
-    
-    readMarkdownFile("./test/single_link.md");
+  it('should be a function', () => {
+    expect(typeof readMarkdownFile).toBe('function');
   });
+  test('test open in a file', () => {
+    return readMarkdownFile('./test/single_link.md').then(data => {
+      expect(data.length).not.toBe(0);
+    });
+  });
+
 });
