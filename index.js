@@ -66,6 +66,19 @@ const isMarkdownFile = function(originPath){
   return isMarkdown;
 }
 
+/**
+ * Abre el archivo
+ * @param {*} originPath 
+ * @returns una promesa del contenido del archivo
+ */
+ const readMarkdownFile = function(originPath){
+  return fsPromises.open(originPath, 'r')// Abre el archivo en modo lectura
+   .then(
+     (markDownFileHandle)=>{
+      return markDownFileHandle.readFile({encoding: 'utf8'});//Lee el contenido del archivo
+     }
+   );      
+}
 
 module.exports = {
   pathExists, isRelative, convertToAbsolut, isFolder,listFolder, isMarkdownFile, readMarkdownFile
