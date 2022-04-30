@@ -1,4 +1,4 @@
-const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder, isMarkdownFile, readMarkdownFile, searchLinks,
+const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder, isMarkdownFile, readMarkdownFile, searchLinks, testLinkByRequests
 
 } = require('../index');
 
@@ -100,7 +100,6 @@ describe('readMarkdownFile', () => {
     });
   });
 });
-
 describe('searchLinks', () => {
   it('should be a function', () => {
     expect(typeof searchLinks).toBe('function');
@@ -110,8 +109,29 @@ describe('searchLinks', () => {
       expect(searchLinks(data).length).not.toBe(0);
     });
   });
-
   test('test if find one link', () => {
     expect(searchLinks('[Amazon](www.amazon.com)').length).not.toBe(0);
+  });
+});
+
+describe('testLinkByRequests', () => {
+  it('should be a function', () => {
+    expect(typeof testLinkByRequests).toBe('function');
+  });
+  test('should return true if link is valid', () => {
+    return testLinkByRequests('https://www.google.com').then(validation => {
+      expect(validation).toBe(true);
+    });
+  });
+  test('should return false if link is  not valid', () => {
+    return testLinkByRequests('https://www.nosoyunlinkvalido.com').then(validation => {
+      expect(validation).toBe(false);
+    });
+  });
+
+  test('should return false if link is private (404)', () => {
+    return testLinkByRequests('https://github.com/natarivera/md-links/settings').then(validation => {
+      expect(validation).toBe(false);
+    });
   });
 });
