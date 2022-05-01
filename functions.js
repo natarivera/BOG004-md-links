@@ -75,7 +75,8 @@ const isMarkdownFile = function (originPath) {
 const readMarkdownFile = function (originPath) {
   return fsPromises
     .open(originPath, "r") // Abre el archivo en modo lectura
-    .then((markDownFileHandle) => {
+    .then((markDownFileHandle) => {      
+      console.log(`readMarkdownFile(${originPath})`);
       return markDownFileHandle.readFile({ encoding: "utf8" }); //Lee el contenido del archivo
     });
 };
@@ -99,26 +100,25 @@ const searchLinks = function (markDown) {
 /**
  * Prueba si una URL es valida ejecutando un request
  * @param {*} url
- * @returns una promesa que resuelve a true si el link es valido y false en otro caso
+ * @returns una promesa que resuelve el codigo http de la respuesta
  */
 const testLinkByRequests = function (url) {
   return new Promise((resolve, reject) => {
-    http.get(url, (res) => {                  
-      let isValid;      
-      if(res.statusCode === 200){
-        isValid = true;
-      } else {
-        isValid = false;
-      }     
-      res.on('data', (chunk) => {});
-      res.on("end", () => {        
-        resolve(isValid);
+    try{
+      http.get(url, (res) => {
+        res.on('data', (chunk) => {});
+        res.on("end", () => {        
+          resolve(res.statusCode);
+        });
+      })
+      .on("error", (e) => {
+        console.log(`Got error: ${e.message}`);
+        resolve(undefined);
       });
-    })
-    .on("error", (e) => {
-      console.log(`Got error: ${e.message}`);
-      resolve(false);
-    });
+    } catch(error){
+      console.log(`Got error: ${error.message}`);
+      resolve(undefined);
+    }    
   });  
 };
 
