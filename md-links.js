@@ -11,61 +11,82 @@ function mdLinks(path, options){
   console.log("mdLinks("+path+", "+options+")");
   return new Promise(
     (resolve, reject) => {
-      
+      // path existe?
       if(pathExists(path)){
+        // Es relativo?
         if(isRelative(path)){
+          // convertir a ruta absoluta
           path = convertToAbsolut(path); 
         }
+        // Es directorio ?
         if(isFolder(path)){
-          let subFolders = listFolder(path);
+          // Listar contenido
+          let subFolders = listFolder(path);// Aqui se guarda el contenido
           // map: subfolder(string) -> mdLinks: Promise<[]>
           // convierte el arreglo de subfolders en promesas devueltas por mdlinks
-          let subMdLinks = subFolders.map(subFolder => mdLinks(path + "\\" + subFolder, options));
+          // 1. path + "\\" + subFolder es el nombre del directorio concatenado con el nombre del contenido (uno del listado)
+          // 2. Llama a mdLinks, mdLinks devuelve una promesa de un arreglo (Promise<[]>)
+          // 3. subMdLinks es un arreglo, de promesas de arreglo [Promise<[]>, Promise<[]>, Promise<[]>..]
+          let subMdLinks = subFolders.map(subFolder => mdLinks(path + "\\" + subFolder, options));//recursividad 
+          // 4. Se resuelven todas las promesas (allSettled porque alguna puede fallar y las necesitamos todas)
           Promise.allSettled(subMdLinks)
             .then(
               (results)=>{
-                let arrayLinks = [];                
+                let arrayLinks = [];    
+                //Recorrer los resultados            
                 results.forEach(
                   (result)=>{
+                    //Si el resutado es ok, concatenamos el arreglo a arrayLinks
                     if(result.status === "fulfilled"){
                       arrayLinks = arrayLinks.concat(result.value);                      
                     } else {
+                      //Si falla, imprimimos el error y no concatenamos nada
                       console.log(result.reason);
                     }                                 
                   }
                 );                
+                //Resolvemos con el arreglo concatenado
                 resolve(arrayLinks);
               }
             );
-        } else {
+        } else { // Es directorio? si no
+          // Es .md ?
           if (isMarkdownFile(path)){
+             // Abrir archivo
              readMarkdownFile(path)
              .then(
-               (content) => {
+               (content) => {//Content es el contenido del archivo en un string
                 let arrayLinks = [];
-                let links = searchLinks(content);              
+                // Buscar links
+                let links = searchLinks(content);
+                // Por cada link 
                 for (var i=0 ; i<links.length; i++){
+                  // validate?
                   if(options.validate){
+                    // En este caso arrayLinks contiene promesas con el objeto despues de la validacion
                     arrayLinks.push(
                       new Promise(
                         (resolve1, reject1)=>{
                           const link = links[i];
+                          // Validar link
                           testLinkByRequests(link.href)
                             .then(
-                              (resultCode)=>{
+                              (resultCode)=>{// resultCode es el codigo http de la respuesta
+                                // url, texto, nombre del archivo, codigo de la ruta
                                 resolve1( {
                                   href: link.href,
                                   text: link.text,
                                   file: path,
                                   status: resultCode,
-                                  ok: resultCode == 200 ? 'ok' : 'fail'
-                                });
+                                  ok: resultCode >= 200 && resultCode <= 299 ? 'ok' : 'fail' // 
+                                });                                
                               }
                             );                        
                         }
                       )
                     );                      
-                  } else{                    
+                  } else{// validate? si no    
+                    // url, texto y nombre del archivo                
                     arrayLinks.push({
                       href: links[i].href,
                       text: links[i].text,
@@ -73,18 +94,23 @@ function mdLinks(path, options){
                     });
                   }                
                 }
-                if(options.validate){                  
+                //Con el arreglo lleno, retorno los valores
+                if(options.validate){      
+                  //Resuelvo todas las promesas con las validaciones de los links            
                   Promise.allSettled(arrayLinks)
                     .then(
                       (results)=>{                        
+                        // allSettled retorna un objeto con el status y el value, value es la verdadera respuesta
                         resolve(
+                          //El map es para retornar solo los objetos de la validacion: result.value
                           results.map(
                           (result)=>result.value
                         ));
                       }
                     );
                 }
-                else{                  
+                else{
+                  //resuelve con el arreglo de los links
                   resolve(arrayLinks);
                 }              
                }
@@ -94,8 +120,7 @@ function mdLinks(path, options){
           }          
         }
       } else {
-        //TODO: Revisar los mensajes de error
-        reject(path + ": El directorio no existe!!");
+        reject(path + ": Error, archivo no encontrado");
       }  
     }
   );
