@@ -12,6 +12,12 @@ describe('mdlinks', () => {
     });
     test('should return un array con dos links', () => {
       return mdLinks('./test/single_link.md', {validate: true}).then( links => {
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        links.forEach(
+          (link)=>{
+            console.table(link);
+          }
+        );
         expect(links.length).toBe(2);
       });
     });
