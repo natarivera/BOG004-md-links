@@ -7,6 +7,7 @@ const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder, isMarkdow
  * @param {*} options 
  * @returns una promesa
  */
+
 function mdLinks(path, options){
   console.log("mdLinks("+path+", "+options+")");
   return new Promise(
@@ -62,8 +63,9 @@ function mdLinks(path, options){
                 // Por cada link 
                 for (var i=0 ; i<links.length; i++){
                   // validate?
-                  if(options.validate){
-                    // En este caso arrayLinks contiene promesas con el objeto despues de la validacion
+                  if(options.validate){                    
+                    // Como la funcion que evalua cada link devuelve una promesa
+                    // Llenamos el arreglo con esas promesas
                     arrayLinks.push(
                       new Promise(
                         (resolve1, reject1)=>{
@@ -78,7 +80,7 @@ function mdLinks(path, options){
                                   text: link.text,
                                   file: path,
                                   status: resultCode,
-                                  ok: resultCode >= 200 && resultCode <= 299 ? 'ok' : 'fail' // 
+                                  ok: resultCode >= 200 && resultCode <= 299 ? 'ok' : 'fail' // codigo de status
                                 });                                
                               }
                             );                        
