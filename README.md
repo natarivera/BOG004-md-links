@@ -4,9 +4,8 @@
 
 - [Markdown Links](#markdown-links)
   - [Índice](#índice)
-  - [1. Preámbulo](#1-preámbulo)
-  - [2. Resumen del proyecto](#2-resumen-del-proyecto)
-  - [3. Planificación.](#3-planificación)
+  - [Preámbulo](#preámbulo)
+  - [Planificación.](#planificación)
   - [Documentación técnica](#documentación-técnica)
     - [Instalación](#instalación)
       - [Libreria global](#libreria-global)
@@ -14,7 +13,7 @@
 
 ***
 
-## 1. Preámbulo
+## Preámbulo
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
@@ -33,28 +32,8 @@ algunas estadísticas.
 
 ![md-links](https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg)
 
-## 2. Resumen del proyecto
 
-En este proyecto crearás una herramienta de línea de comando (CLI) así como tu
-propia librería (o biblioteca - library) en JavaScript.
-
-En esta oportunidad nos alejamos un poco del navegador para construir un
-programa que se ejecute usando Node.js. Aprenderemos sobre procesos
-(`process.env`, `process.args`, ...), cómo interactuar con el sistema archivos,
-cómo hacer consultas de red, etc.
-
-[Node.js](https://nodejs.org/es/) es un entorno de ejecución para JavaScript
-construido con el [motor de JavaScript V8 de Chrome](https://developers.google.com/v8/).
-Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo,
-ya sea tu máquina o un servidor, lo cual nos abre las puertas para poder
-interactuar con el sistema en sí, archivos, redes, ...
-
-Diseñar tu propia librería es una experiencia fundamental para cualquier
-desarrollador porque te obliga a pensar en la interfaz (API) de tus
-_módulos_ y cómo será usado por otros developers. Debes tener especial
-consideración en peculiaridades del lenguaje, convenciones y buenas prácticas.
-
-## 3. Planificación.
+## Planificación.
 
  ![Diagrama de Flujo](Img/Diagrama%20de%20Flujo%20de%20MDLinks%20version2.png)
 
@@ -62,11 +41,11 @@ Voy a implementar la metodolgia TDD(test driven development), diseñando primero
 
 ## Documentación técnica
 
-mdlinks es una libreria que te permitira escontrar vinculos en tus archivos de markdown, warawarawar
+mdlinks es una libreria que te permitira escontrar vinculos en tus archivos de markdown.
 
 ### Instalación
 
-md-links se puede instalar como una herramienta global o puede incluirse como libreria en tu proyuecto javascript
+md-links se puede instalar como una herramienta global o puede incluirse como libreria en tu proyecto javascript
 
 #### Libreria global
 
