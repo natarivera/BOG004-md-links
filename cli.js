@@ -46,7 +46,7 @@ mdLinks(path, {validate})
              let setHrefs = Array.from(new Set(hrefs));// Queda en valores unicos y no repetidos             //Contar los ok
              console.log(`Unique: ${setHrefs.length}`);
              if(validate){
-                 //filtrar y Contar los no fail
+                 //filtrar y Contar los no fail o rotos
                  const linksFil = links.filter(item => item.ok === 'fail');
                  console.log(`Broken: ${linksFil.length}`);
              }
