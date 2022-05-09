@@ -8,9 +8,14 @@
     "jest": "^27.5.1"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "eslint": "eslint --ext .js ./ test/",
+    "pretest": "npm run eslint"
   },
   "bin": {
     "md-links": "./cli.js"
+  },
+  "dependencies": {
+    "eslint": "^8.15.0"
   }
 }
