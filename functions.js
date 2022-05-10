@@ -1,7 +1,7 @@
 const fs = require("fs");
 const fsPromises = require("fs/promises");
 const path = require("path");
-const http = require("https");
+const http = require("./functions-utils");
 
 /**
  * Valida si el Path Existe
@@ -105,9 +105,9 @@ const searchLinks = function (markDown) {
 const testLinkByRequests = function (url) {
   return new Promise((resolve, reject) => {
     try{
-      http.get(url, (res) => {
+      http.get(url, (res) => {//call back        
         res.on('data', (chunk) => {});
-        res.on("end", () => {        
+        res.on("end", () => { // callback que llama otro callback
           resolve(res.statusCode);
         });
       })

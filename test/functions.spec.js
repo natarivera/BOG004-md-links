@@ -1,6 +1,7 @@
 const {pathExists, isRelative, convertToAbsolut, isFolder, listFolder, isMarkdownFile, readMarkdownFile, searchLinks, testLinkByRequests
 
 } = require('../functions');
+jest.mock('../functions-utils.js');
 
 describe('pathExists', () => {
 
